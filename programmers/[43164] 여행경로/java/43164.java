@@ -19,7 +19,7 @@ class Solution {
     }
     
     private void findRoutes(int count, String start, String path) {
-        if (ticketCount == count && isAllVisited()) {
+        if (ticketCount == count) {
             routes.add(path);
             return;
         }
@@ -33,14 +33,5 @@ class Solution {
             findRoutes(count + 1, tickets[index][1], path + " " + tickets[index][1]);
             isVisited[index] = false;
         }
-    }
-    
-    private boolean isAllVisited() {
-        for (boolean visited : isVisited) {
-            if (!visited) {
-                return false;
-            }
-        }
-        return true;
     }
 }
