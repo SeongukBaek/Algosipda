@@ -19,7 +19,7 @@ class Solution {
             int pairIndex = Arrays.binarySearch(people, limit - current + 1);
             if (pairIndex < 0) {
                 pairIndex = (pairIndex + 1) * -1;
-            }            
+            }
             if (pairIndex-- <= index) {
                 continue;
             }
