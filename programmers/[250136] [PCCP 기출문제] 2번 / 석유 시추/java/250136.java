@@ -4,7 +4,6 @@ class Solution {
     private int X;
     private int Y;
     private int[][] land;
-    private int[] lane;
     private List<Integer> petroleum = new ArrayList<>();
     private int[][] directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     private int index = -1;
@@ -13,7 +12,6 @@ class Solution {
         this.land = land;
         X = land.length;
         Y = land[0].length;
-        lane = new int[Y];
         
         for (int x = 0; x < X; x++) {
             for (int y = 0; y < Y; y++) {
@@ -24,13 +22,14 @@ class Solution {
             }
         }
         
-        for (int l = 0; l < Y; l++) {
+        int max = 0;
+        for (int lane = 0; lane < Y; lane++) {
             Set<Integer> set = new HashSet<>();
             int sum = 0;
             
             for (int x = 0; x < X; x++) {
-                if (land[x][l] != 0) {
-                    set.add(land[x][l]);
+                if (land[x][lane] != 0) {
+                    set.add(land[x][lane]);
                 }
             }
             
@@ -38,18 +37,19 @@ class Solution {
                 sum += petroleum.get(number * -1 - 1);
             }
             
-            lane[l] = sum;
+            if (max < sum) {
+                max = sum;
+            }
         }
         
-        Arrays.sort(lane);
-        return lane[Y - 1];
+        return max;
     }
     
     private int computeSums(int x, int y) {
-        int sum = 0;
-        land[x][y] = index;
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[] {x, y});
+        land[x][y] = index;
+        int sum = 0;
         
         while (!queue.isEmpty()) {
             int[] current = queue.poll();
